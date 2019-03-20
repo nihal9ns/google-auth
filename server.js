@@ -1,5 +1,6 @@
 const express = require("express");
 const morgan = require("morgan");
+const path = require("path");
 const app = express();
 const port = 5000;
 // const Sequelize = require('sequelize');
@@ -26,8 +27,16 @@ app.use(function(req, res, next) {
     next();
 });
 
-app.get("/", (req, res) => {
-    res.send("Hello");
+app.get('/', function (req, res) {
+    res.sendFile(path.join(__dirname, 'static', 'index.html'));
+});
+
+app.get('/static/main.js', function (req, res) {
+    res.sendFile(path.join(__dirname, 'static', 'main.js'));
+});
+
+app.get("/test", (req, res) => {
+    res.send("WORKING!!!");
 });
 
 app.get("/auth", (req, res) => {
@@ -38,10 +47,11 @@ app.get("/auth", (req, res) => {
     // TODO: fetch user info using id_token
     // TODO: save user info to db
 
-    const id_token = "1223";
+    // const id_token = "1223";
 
-    res.writeHead(301, {Location: 'https://www.googleapis.com/oauth2/v3/tokeninfo?id_token=',id_token});
-    res.end();
+    // res.writeHead(301, {Location: 'https://www.googleapis.com/oauth2/v3/tokeninfo?id_token=',id_token});
+    // res.end();
+    res.send("LOGGED IN");
 });
 
 app.listen(process.env.PORT || port, () => {
