@@ -44,7 +44,7 @@ app.get("/auth", (req, res) => {
     res.end();
 });
 
-app.listen(port, () => {
+app.listen(process.env.PORT || port, () => {
     console.log(`Server is now running on port ${port}!!!`);
 });
 
